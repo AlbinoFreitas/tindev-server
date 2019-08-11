@@ -5,17 +5,18 @@ const mongoose = require('mongoose');
 
 const routes = require('./src/routes');
 
-const port = process.env.PORT || 3000;
-
 const app = express();
-
-mongoose.connect(`
-    mongodb+srv://albinitoatlasuser:${process.env.DB_PASSWORD}@cluster0-9uoaa.mongodb.net/tindev?retryWrites=true&w=majority
-`, { useNewUrlParser: true });
 
 app.use(express.json());
 app.use(routes);
 
-app.listen(port, () => {
-    console.log(`server running on port: ${port}`);
+mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-9uoaa.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true }
+).then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log(`server running on port: ${process.env.PORT}`);
+    });
+}).catch(err => {
+    console.log(err);
 });
