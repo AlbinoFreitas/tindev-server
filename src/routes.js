@@ -13,6 +13,7 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/devs', DevController.store);
+routes.get('/devs', DevController.index);
 
 routes.post('/devs/:id/likes', LikeController.store);
 routes.post('/devs/:id/dislikes', DislikeController.store);
