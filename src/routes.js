@@ -14,6 +14,7 @@ routes.get('/', (req, res) => {
 
 routes.post('/devs', DevController.store);
 routes.get('/devs', DevController.index);
+routes.get('/devs/:id', DevController.show);
 
 routes.post('/devs/:id/likes', LikeController.store);
 routes.post('/devs/:id/dislikes', DislikeController.store);

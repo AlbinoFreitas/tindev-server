@@ -2,6 +2,21 @@ const axios = require('axios');
 const Dev = require('../models/Dev');
 
 module.exports = {
+    async show(req, res){
+        const { id: user } = req.params;
+
+        const loggedDev = await Dev.findById(user);
+
+        if(!user){
+            return res.status(404).json({
+                error: true,
+                message: 'User not found'
+            });
+        }
+
+        return res.json(loggedDev);
+    },
+    
     async index(req, res) {
         const { user } = req.headers;
 
