@@ -31,7 +31,13 @@ module.exports = {
         await loggedDev.save();
 
         if(targetDev.likes.includes(loggedDev._id)){
-            console.log('DEU MATCH');
+            if(loggedDev.isConnected){
+                req.io.to(loggedDev.isConnected).emit('match', targetDev);
+            }
+
+            if(targetDev.isConnected){
+                req.io.to(targetDev.isConnected).emit('match', loggedDev);
+            }
         }
 
         return res.json(loggedDev);
